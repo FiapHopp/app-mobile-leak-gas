@@ -1,27 +1,46 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-const dados_covid = require('../dados/dados_covid.json');
+import { Icon } from 'react-native-elements'
 
-export default function Footer() {
-    const listaSuspeitos = dados_covid.filter(caso => caso.statuscovid == "suspeito");
-    const listaPositivos = dados_covid.filter(caso => caso.statuscovid == "negativo");
-    const listaNegativos = dados_covid.filter(caso => caso.statuscovid == "positivo");
+export default function Footer({ navigation }) {
 
     return (
-        <View style={{ backgroundColor: "#9f9f9f", color: 'white', position: 'absolute', left: 0, right: 0, bottom: 0, height: 40, flexDirection: 'column' }}>
+        <View style={{ backgroundColor: "#D94501", color: 'white', position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'column' }}>
             <View style={styles.container}>
-                <View style={{ flexDirection: 'row', flex: 2 }}>
-                    <Text>Positivos: </Text>
-                    <Text style={{ color: "#811005", fontWeight: 'bold' }}>{listaPositivos.length}</Text>
+                <TouchableOpacity
+                    style={{ flexDirection: 'column', flex: 1 }}
+                    onPress={() => navigation.navigate("Details")}>
+
+                    <View style={{ flexDirection: 'column'}}>
+                        <Icon
+                            name='menu'
+                            type='ionicon'
+                            color='#ffffff' />
+                        <Text style={styles.texto}>Menu</Text>                    
+                    </View>
+                </TouchableOpacity>
+
+                <View style={{ flexDirection: 'column'}}>
+                    <Icon
+                        name='business'
+                        type='ionicon'
+                        color='#ffffff' />
+                    <Text style={styles.texto}>Condomínio</Text>                    
                 </View>
-                <View style={{ flexDirection: 'row', flex: 2 }}>
-                    <Text>Suspeitos: </Text>
-                    <Text style={{ color: "#ffa700", fontWeight: 'bold' }}>{listaSuspeitos.length}</Text>
+                <View style={{ flexDirection: 'column'}}>
+                    <Icon
+                        name='glasses'
+                        type='ionicon'
+                        color='#ffffff' />
+                    <Text style={styles.texto}>Visão Geral</Text>                    
                 </View>
-                <View style={{ flexDirection: 'row', flex: 2 }}>
-                    <Text>Negativos: </Text>
-                    <Text style={{ color: "#7b940e", fontWeight: 'bold' }}>{listaNegativos.length}</Text>
+                <View style={{ flexDirection: 'column'}}>
+                    <Icon
+                        name='help'
+                        type='ionicon'
+                        color='#ffffff' />
+                    <Text style={styles.texto}>Ajuda</Text>                    
                 </View>
             </View>
         </View>
@@ -32,5 +51,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         padding: 10,
+        justifyContent: 'space-around'
     },
+    texto:{
+        color: 'white',
+        fontFamily: 'Calibri',
+        fontSize: 16
+
+        
+    }
 });

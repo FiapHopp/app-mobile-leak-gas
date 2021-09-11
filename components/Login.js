@@ -2,22 +2,28 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import { Button, TextInput, ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
 import { logar, cadastrar, alterar, deletar } from '../services/login.service';
-import getImage from '../utils/ImagesForWeather';
+import getImage from '../utils/Images';
 
 
 export default function Login({ navigation }) {
 
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    navigation.navigate("ListaApartamentos")
 
     function realizarLogin() {
-        logar(user).then((data) => {
-            console.log("sucesso: " + JSON.stringify(data))
-            navigation.navigate("ListaCovid")
-
-        }).catch((error) => {            
-
+        var usuario = {
+            "usuario": user,
+            "senha": password
+        }            
+        logar(usuario).then((data) => {
+            if(data.sts == 200){                
+                
+            }      
+        }).catch((error) => {                        
+            //exibir mensagem na tela dizendo que senha está errado
         })
+        
     }
 
     return (
