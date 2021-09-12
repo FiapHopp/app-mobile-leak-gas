@@ -1,6 +1,5 @@
 import { getConnectionAPI, postConnectionAPI } from "../utils/ConnectionAPI";
 
-
 function getUrlBaseAPI(id_condominio) {
     return "https://api-leekgas.azurewebsites.net/api/Ocorrencia?idCondominio=" + id_condominio;    
 }

@@ -6,6 +6,7 @@ const images = {
     'janela-alarme': require('../assets/janela-alarme.png'),
     'erro': require('../assets/imagem-erro.png'),
 };
+
 export default function getImage(image) { 
     return images[image]; 
 }

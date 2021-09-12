@@ -1,6 +1,5 @@
 import { postConnectionAPI } from "../utils/ConnectionAPI";
 
-
 function getUrlBaseAPI() {
     return 'https://api-leekgas.azurewebsites.net/api/Autenticacao';    
 }
@@ -8,8 +7,3 @@ function getUrlBaseAPI() {
 export function logar(usuario) {
     return postConnectionAPI(getUrlBaseAPI(), usuario);
 }
-
-
-
-
-

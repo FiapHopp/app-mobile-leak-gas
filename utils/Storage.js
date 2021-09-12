@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+//SETA NO STRORAGE UMA STRING
 export const setStringStorage = (key, value) => {
     try{
         await AsyncStorage.setItem(key, value);
@@ -8,6 +9,7 @@ export const setStringStorage = (key, value) => {
     }
 }
 
+//RECUPERA UMA STRING DO STORAGE
 export const getStringStorage = (key) => {
     try{
         return await AsyncStorage.getItem(key);
@@ -16,44 +18,22 @@ export const getStringStorage = (key) => {
     }
 }
 
+//SETA NO STRORAGE UM OBJETO
 export const setObjectStorage = (key, value, callback = null) => {
     try{
-        const json = JSON.stringify(value)
+        const json = JSON.stringify(value);
         await AsyncStorage.setItem(key, json);
     }catch(e){
         throw new Error(`Erro ao inserir o dado ${key} | Erro: ${e}`);
     }
 }
 
+//RECUPERA UM OBJETO DO STORAGE
 export const getObjectStorage = (key, callback = null) => {
     try{
         const jsonValue = await AsyncStorage.getItem(key);
         return jsonValue != null ? JSON.parse(jsonValue) : null;
     }catch(e){
         throw new Error(`Erro ao obter o dado ${key} | Erro: ${e}`);
-    }
-}
-
-export const getAllKeys = (callback = null) => {
-    try{        
-        return AsyncStorage.getAllKeys();
-    }catch(e){
-        throw new Error(`Erro ao obter todos os dados | Erro: ${e}`);
-    }
-}
-
-export const removeKey = (key, callback = null) => {
-    try{        
-        await AsyncStorage.removeItem(key);
-    }catch(e){
-        throw new Error(`Erro ao remover os dado ${key} | Erro: ${e}`);
-    }
-}
-
-export const clearAllKeys = (key, callback = null) => {
-    try{        
-        await AsyncStorage.clear();
-    }catch(e){
-        throw new Error(`Erro ao remover todos os dados | Erro: ${e}`);
     }
 }

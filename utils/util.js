@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
+//EXIBE O LOADING DE CARREGAMENTO GERAL
 export default function Loading() {
     return (
         <View style={styles.container}>
@@ -10,13 +11,12 @@ export default function Loading() {
     );
 }
 
-
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#292E33',
         alignContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#292E33',
+        flex: 1,
         justifyContent: 'center'
     }
 });

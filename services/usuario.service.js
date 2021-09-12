@@ -1,32 +1,21 @@
-import { getConnectionAPI, postConnectionAPI, patchConnectionAPI, deleteConnectionAPI } from "../utils/ConnectionAPI";
-
+import { getConnectionAPI, postConnectionAPI, patchConnectionAPI, deleteConnectionAPI, putConnectionAPI } from "../utils/ConnectionAPI";
 
 function getUrlBaseAPI() {
-    return 'https://api-leekgas.azurewebsites.net/api/Usuario/Cadastrar';    
+    return "https://api-leekgas.azurewebsites.net/api/Usuario";    
 }
 
-const urlTeste = 'http://localhost:3000/usuarios/';
-
-
-export function cadastrar(usuario) {
-    return postConnectionAPI(urlTeste, usuario);
+export function cadastrarUsuario(usuario) {
+    return postConnectionAPI(getUrlBaseAPI(), usuario);
 }
 
-export function alterar(usuario){    
-    return patchConnectionAPI(urlTeste+'1')
+export function alterarUsuario(usuario){    
+    return putConnectionAPI(getUrlBaseAPI(), usuario)
 }
 
-export function deletar(produto){    
-    return deleteConnectionAPI(urlTeste+'2')
+export function deletarUsuario(id_usuario){    
+    return deleteConnectionAPI(getUrlBaseAPI() + id_usuario, {});
 }
 
-export function listarUsuarios(){    
-    return getConnectionAPI(urlTeste)
+export function listarUsuarios(idCondominio){    
+    return getConnectionAPI(getUrlBaseAPI() + "?idCondominio=" + idCondominio)
 }
-
-
-
-
-
-
-

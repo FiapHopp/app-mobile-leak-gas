@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Button, TextInput, ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Image } from 'react-native';
 import { logar } from '../../services/login.service';
 import getImage from '../../utils/Images';
 
-import LoadingSplash from '../../utils/LoadingSplash';
+import LoadingSplash from '../../utils/Loading/LoadingSplash';
 
 export default function Splash({ navigation }) {
     
@@ -25,15 +23,14 @@ export default function Splash({ navigation }) {
 }
 const styles = StyleSheet.create({
     container:{
-        flex: 1,
+        alignItems: 'center',
         backgroundColor: '#ea7d23',
-        justifyContent: 'center',
-        alignItems: 'center'
-
+        flex: 1,
+        justifyContent: 'center'
     },
     image: {
-        width: 450,
         height: 450,
-        resizeMode: 'stretch'
+        resizeMode: 'stretch',
+        width: 450,
     }
 });
