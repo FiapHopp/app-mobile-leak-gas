@@ -1,13 +1,20 @@
-import { getConnectionAPI, postConnectionAPI, patchConnectionAPI, deleteConnectionAPI } from "../utils/ConnectionAPI";
+import { getConnectionAPI, postConnectionAPI } from "../utils/ConnectionAPI";
 
 
-function getUrlBaseAPI() {
-    return 'https://api-leekgas.azurewebsites.net/api/Apartamento';    
+function getUrlBaseAPI(id_condominio) {
+    return "https://api-leekgas.azurewebsites.net/api/Ocorrencia?idCondominio=" + id_condominio;    
 }
 
-const urlTeste = 'http://localhost:3000/apartamentos/';
+function getUrlBaseAPIAtualizaOcorrencia(id) {
+    return "https://api-leekgas.azurewebsites.net/api/Ocorrencia/vazamento?idApartamento=" + id + "&status=false";    
+}
 
+export function atualizarOcorrenciaApartamento(id){
+    console.log("ENTROU ATUALIZA OCORRENCIA")
+    return postConnectionAPI(getUrlBaseAPIAtualizaOcorrencia(id),{});   
+}
 
-export function buscarApartamentos() {
-    return getConnectionAPI(urlTeste);
+export function buscarApartamentos(id_condominio) {
+    console.log("ENTROU BUSCAR AP")
+    return getConnectionAPI(getUrlBaseAPI(id_condominio));
 }
