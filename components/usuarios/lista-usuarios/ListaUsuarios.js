@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 
 import { deletarUsuario, listarUsuarios } from '../../../services/usuario.service';
 
-import Loading from '../../../utils/util';
+import Loading from '../../../utils/Loading/Loading';
 
 export default function ListaUsuarios({ route, navigation }) {
     const { idCondominio, idUsuario } = route.params;
@@ -25,7 +25,7 @@ export default function ListaUsuarios({ route, navigation }) {
                 navigation.navigate("Erro");
             }
             retorno.dados.then((dados) => {
-                setLista(dados.data);                                
+                setLista(dados.data);                                                
                 setAtivaLoad(false);
             });
         }).catch((error) => {
@@ -35,7 +35,7 @@ export default function ListaUsuarios({ route, navigation }) {
     }
 
     //EXCLUIR UM USUARIO
-    function exluirUsuario(id_usuario){        
+    function exluirUsuario(id_usuario){
         deletarUsuario(id_usuario).then((retorno) => {
             setAtivaLoad(false);
             if (retorno.sts != 200) {
@@ -63,12 +63,12 @@ export default function ListaUsuarios({ route, navigation }) {
         return (
             <View style={styles.container}>
                 <TouchableOpacity
-                    onPress={() => { navigation.navigate("CadastroUsuario"), { idCondominio: idCondominio, idUsuario: idUsuario } }}>
+                    onPress={() => { navigation.navigate("CadastroUsuario", { idCondominio: idCondominio, idUsuario: idUsuario })}}>
                     <Text style={styles.textButton}>Cadastrar usuário</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => { navigation.navigate("ListaApartamentos"), { idCondominio: idCondominio, idUsuario: idUsuario } }}>
+                    onPress={() => { navigation.navigate("ListaApartamentos", { idCondominio: idCondominio, idUsuario: idUsuario })}}>
                     <Text style={styles.textButton}>Lista apartamentos</Text>
                 </TouchableOpacity>
                 <FlatList
@@ -78,8 +78,8 @@ export default function ListaUsuarios({ route, navigation }) {
                         <View>
                             <View style={styles.itemContainer}>
                                 <Text style={styles.text}>Nome: {item.nome}</Text>
-                                <Text style={styles.text}>CPF: {item.cpf}</Text>
-                                <Text style={styles.text}>Celular: {item.celular}</Text>
+                                <Text style={styles.text}>CPF: {item.nrDocumento}</Text>
+                                <Text style={styles.text}>Celular: {item.telefone}</Text>
                                 <TouchableOpacity
                                     onPress={()=>{exluirUsuario(item.id)}}>
                                     <Icon

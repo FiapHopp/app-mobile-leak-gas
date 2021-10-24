@@ -1,14 +1,14 @@
 
 import React, { useState } from 'react';
 import { Button,StyleSheet, Text, TextInput, View} from 'react-native';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
-import { cadastrarUsuario, cadastrarUsuarioTeste } from '../../../services/usuario.service';
+import { cadastrarUsuario } from '../../../services/usuario.service';
 
-import Loading from '../../../utils/util';
+import Loading from '../../../utils/Loading/Loading';
 
 export default function CadastroUsuario({ route, navigation }) {
-
+    
+    const { idCondominio, idUsuario } = route.params;
     const [nome, setNome] = useState('');
     const [cpf, setCpf] = useState('');
     const [celular, setCelular] = useState('');
@@ -16,17 +16,14 @@ export default function CadastroUsuario({ route, navigation }) {
     const [password, setPassword] = useState('');
     const [ativaLoad, setAtivaLoad] = useState(false);
     const [ativaErro, setAtivaErro] = useState(false);
-    const { idCondominio, idUsuario } = route.params;
     
-    const { getItem, setItem } = useAsyncStorage('idUsuario');
-
     //REALIZA O CADASTRO DE UM USUÁRIO COM OS DADOS DO FORM
     function realizarCadastro () { 
 
         var usuario = {
             "nome": nome,
-            "cpf": cpf,
-            "telefone": celular,
+            "cpf": parseInt(cpf),
+            "telefone": parseInt(celular),
             "login": user,
             "senha": password,
             "nivelAcesso": 0
@@ -37,9 +34,9 @@ export default function CadastroUsuario({ route, navigation }) {
             return false;
         }else{
             setAtivaErro(false); 
-            setAtivaLoad(true);
-            cadastrarUsuarioTeste(usuario).then((retorno) => {
-                if (retorno.sts == 201) {
+            setAtivaLoad(true);            
+            cadastrarUsuario(usuario).then((retorno) => {
+                if (retorno.sts == 200) {
                     setAtivaLoad(false);
                     navigation.navigate("ListaUsuarios", { idCondominio: idCondominio, idUsuario: idUsuario });                
                 } else {
@@ -65,7 +62,7 @@ export default function CadastroUsuario({ route, navigation }) {
         if(flag){
             return (
                 <View>
-                    <Text>Verifique as informações do formulário!</Text>
+                    <Text style={{color: 'white'}}>Verifique as informações do formulário!</Text>
                 </View>
             )
         }        
@@ -94,7 +91,7 @@ export default function CadastroUsuario({ route, navigation }) {
                     </View>
                     <View style={styles.containerInput}>
                         <TextInput style={styles.inputStyle}
-                            keyboardType="text"
+                            keyboardType="number"
                             onChangeText={setCpf}
                             placeholder="CPF"
                             value={cpf} />
@@ -139,7 +136,6 @@ export default function CadastroUsuario({ route, navigation }) {
 
     return (
         <View style={{ flex: 1 }}>
-
             {Exibir(ativaLoad)}
         </View>
     );
@@ -174,6 +170,7 @@ const styles = StyleSheet.create({
         borderBottomColor: 'gray',
         borderBottomWidth: 2,
         borderRadius: 1,
+        color: 'white',
         height: 40,
         marginBottom: 10,
         paddingHorizontal: 5,

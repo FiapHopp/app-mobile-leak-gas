@@ -1,56 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import { atualizarOcorrenciaApartamento, buscarApartamentos, buscarApartamentosTeste } from '../../services/apartamento.service';
+import { atualizarOcorrenciaApartamento, buscarApartamentos } from '../../services/apartamento.service';
 
 import ImagemApartamento from './lista-apartamento-imagem/ImagemApartamento';
-import Loading from '../../utils/util';
+import Loading from '../../utils/Loading/Loading';
 
 export default function ListaApartamentos({ route, navigation }) {
-    const { idCondominio, idUsuario } = route.params;
+    const { idCondominio, idUsuario } = route.params;    
     const [lista, setLista] = useState([]);
     const [ativaLoad, setAtivaLoad] = useState(false);
+    console.log("ENTROU AQUI")
 
     
     useEffect(() => {
-        buscaApartamentos(id);
+        buscaApartamentos(idCondominio);
     }, [])
 
     //ATUALIZA OCORRÊNCIA PARA NORMALIZADA DO APARTAMENTO SELECIONADO
     function atualizaOcorrencia(id_apartamento) {
-        setAtivaLoad(true)
+        setAtivaLoad(true);
         atualizarOcorrenciaApartamento(id_apartamento).then((retorno) => {
             if(retorno.sts == 200){
-                console.log("Sucesso ao atualizar ocorrência")
-                window.location.reload(true);
+                console.log("Sucesso ao atualizar ocorrência");
+                setAtivaLoad(false);
+                //window.location.reload(true);
             }else{
-                setAtivaLoad(false)
-                console.log("Erro ao atualizar ocorrência")
+                setAtivaLoad(false);
+                console.log("Erro ao atualizar ocorrência");
             }
         }).catch((error) => {
-            console.log("Erro ao atualizar ocorrência | Erro: " + error)
-            setAtivaLoad(false)            
+            console.log("Erro ao atualizar ocorrência | Erro: " + error);
+            setAtivaLoad(false);           
         });
     }
 
     //BUSCA A LISTA DE TODOS OS APARTAMENTOS ATRAVÉS DO ID DO CONDOMINIO SELECIONADO
-    function buscaApartamentos(){
-        setAtivaLoad(true)        
-        //buscarApartamentos(idCondominio).then((retorno) => {
-            buscarApartamentos(idUsuario).then((retorno) => {
+    function buscaApartamentos(idCondominio){
+        setAtivaLoad(true);
+        buscarApartamentos(idCondominio).then((retorno) => {
             if(retorno.sts == 200){                
-                setAtivaLoad(false)
+                setAtivaLoad(false);
                 retorno.dados.then((data) => {
-                    setLista(data);
-                })
+                    setLista(data.data);
+                });
             }else{
-                setAtivaLoad(false)
+                setAtivaLoad(false);
                 console.log("Erro ao buscar lista de apartamentos");
                 navigation.navigate("Erro"); 
-            }
-            
+            }            
         }).catch((error) => {
-            setAtivaLoad(false)
+            setAtivaLoad(false);
             console.log("Erro ao buscar lista de apartamentos | Erro: " + error);
             navigation.navigate("Erro");             
         })
@@ -58,7 +58,7 @@ export default function ListaApartamentos({ route, navigation }) {
     
     //VERIFICA SE EXIBE IMAGEM DE ALARME OU DE STATUS NORMALIZADO
     function exibeImagem(apartamento) {
-        if (!apartamento.ativo) {
+        if (apartamento.ativo) {
             return (
                 <TouchableOpacity onPress={() => atualizaOcorrencia(apartamento.idApartamento)}>
                     <View>

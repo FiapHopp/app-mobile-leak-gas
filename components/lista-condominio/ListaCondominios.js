@@ -3,16 +3,17 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 
 import { buscarCondominios } from '../../services/condominio.service';
 
-import Loading from '../../utils/util';
+import Loading from '../../utils/Loading/Loading';
+import Footer from '../footer/Footer';
 
-export default function ListaCondominios({ route, navigation }) {
-    const { idUsuario } = route.params;        
+export default function ListaCondominios({ route, navigation }) {    
+    const { idCondominio, idUsuario } = route.params;
     const [lista, setLista] = useState([]);
     const [ativaLoad, setAtivaLoad] = useState(false);
 
     useEffect(() => {        
         setAtivaLoad(true);        
-            buscarCondominios(idUsuario).then((retorno) => {
+            buscarCondominios(parseInt(idUsuario)).then((retorno) => {
             setAtivaLoad(false);
             if (retorno.sts != 200) {                
                 console.log("Erro ao consultar condomínios");
@@ -25,6 +26,7 @@ export default function ListaCondominios({ route, navigation }) {
         }).catch((error) => {
             setAtivaLoad(false);
             console.log("Erro ao consultar condomínios | Erro: " + error);
+            navigation.navigate("Erro");
         });
 
       }, [])
@@ -36,7 +38,7 @@ export default function ListaCondominios({ route, navigation }) {
         );
     }
 
-    //EXIBE OS DADOS DA TELA
+    //EXIBE OS DADOS DA TELA - TOBE: SE NAO TIVER CONDOMINIOS EXIBIR MENSAGEM DIZENDO QUE NAO ENCONTROU
     function ExibeDados() {
         return (
             <View style={styles.container}>
@@ -62,7 +64,10 @@ export default function ListaCondominios({ route, navigation }) {
                     </View>
                     )}
                 />
-                {/* <Footer /> */}
+                <Footer 
+                    navegacao={ navigation }
+                    idCondominio={ idCondominio }
+                    idUsuario={ idUsuario }/>                
             </View>
         );
     }

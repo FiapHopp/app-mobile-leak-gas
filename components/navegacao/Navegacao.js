@@ -8,7 +8,7 @@ import Erro from '../erro/Erro';
 import Footer from '../footer/Footer';
 import ListaApartamentos from '../lista-apartamentos/ListaApartamentos';
 import ListaCondominios from '../lista-condominio/ListaCondominios';
-import Login from '../login/Login';
+import Login from '../usuarios/login-usuario/Login';
 import Splash from '../splash/Splash';
 import ListaUsuarios from '../usuarios/lista-usuarios/ListaUsuarios';
 

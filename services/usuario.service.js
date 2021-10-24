@@ -1,4 +1,4 @@
-import { getConnectionAPI, postConnectionAPI, patchConnectionAPI, deleteConnectionAPI, putConnectionAPI } from "../utils/ConnectionAPI";
+import { getConnectionAPI, postConnectionAPI, deleteConnectionAPI, putConnectionAPI } from "../utils/ConnectionAPI";
 
 function getUrlBaseAPI() {
     return "https://api-leekgas.azurewebsites.net/api/Usuario";    
@@ -13,7 +13,7 @@ export function alterarUsuario(usuario){
 }
 
 export function deletarUsuario(id_usuario){    
-    return deleteConnectionAPI(getUrlBaseAPI() + id_usuario, {});
+    return deleteConnectionAPI(getUrlBaseAPI() + "?idUsuario="+id_usuario, {});
 }
 
 export function listarUsuarios(idCondominio){    

@@ -1,22 +1,18 @@
 
 import React from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
-//EXIBE O LOADING DE CARREGAMENTO GERAL
-export default function Loading() {
-    return (
-        <View style={styles.container}>
-            <ActivityIndicator size="large" color="#D94501" />
-        </View>        
-    );
+const { getItem, setItem } = useAsyncStorage('idUsuario');
+
+export function getIdUsuario(){
+    getItem().then((retorno) => {
+        console.log("retorno promise: " + retorno);
+        return retorno;
+    }).catch((error) => {
+        console.log("Erro ao capturar idUsuario: " + error);
+    });
 }
 
-const styles = StyleSheet.create({
-    container: {
-        alignContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#292E33',
-        flex: 1,
-        justifyContent: 'center'
-    }
-});
+export function setIdUsuario(id){
+    setItem(id);    
+}

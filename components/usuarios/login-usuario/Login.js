@@ -1,12 +1,11 @@
 
 import React, { useState } from 'react';
 import { Button, Image, ImageBackground, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 
-import { logar } from '../../services/login.service';
-import getImage from '../../utils/Images';
+import { logar } from '../../../services/login.service';
+import getImage from '../../../utils/Images';
 
-import Loading from '../../utils/util';
+import Loading from '../../../utils/Loading/Loading';
 
 export default function Login({ navigation }) {
 
@@ -14,10 +13,10 @@ export default function Login({ navigation }) {
     const [password, setPassword] = useState('');
     const [ativaLoad, setAtivaLoad] = useState(false);
     const [ativaErro, setAtivaErro] = useState('2'); //0-falta preenchimento, 1-usuario ou senha incorretos, 2-nao exibe
-    const { getItem, setItem } = useAsyncStorage('idUsuario');
     
     //VERIFICA SE O USUARIO E SENHA ESTAO CORRETOS
-    function realizarLogin() {            
+    function realizarLogin() { 
+        
         var usuario = {
             "usuario": user,
             "senha": password
@@ -33,9 +32,8 @@ export default function Login({ navigation }) {
                 setAtivaLoad(false);
                 if(retorno.sts == 200){                    
                     retorno.dados.then((dados) => {                        
-                        setAtivaErro('2');
-                        setItem(dados.data.idUsuario);
-                        navigation.navigate("ListaCondominios", { idUsuario: dados.data.idUsuario });
+                        setAtivaErro('2');                        
+                        navigation.navigate("ListaCondominios", { idUsuario: dados.data.idUsuario, idCondomino: "" });                        
                     }); 
                 }else if(retorno.sts === 400){                    
                     retorno.dados.then((dados) => {

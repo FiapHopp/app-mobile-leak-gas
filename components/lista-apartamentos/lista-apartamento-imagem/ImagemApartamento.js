@@ -11,7 +11,7 @@ export default function ImagemApartamento({ apartamento }) {
                 <View style={{ marginBottom: 20, flex:1, alignItems: 'center' }}>
                     <Image
                         style={styles.image}
-                        source={getImage('janela-ok')} />
+                        source={getImage('janela-alarme')} />
                     <Text>{apartamento.nrApartamento} - {apartamento.bloco}</Text>
                 </View>
             )}
@@ -20,8 +20,8 @@ export default function ImagemApartamento({ apartamento }) {
                 <View style={{ marginBottom: 20, flex:1, alignItems: 'center' }}>
                     <Image
                         style={styles.image}
-                        source={getImage('janela-alarme')} />
-                    <Text>{apartamento.numero} - {apartamento.bloco}</Text>
+                        source={getImage('janela-ok')} />
+                    <Text>{apartamento.nrApartamento} - {apartamento.bloco}</Text>
                 </View>
             )}
         </View>
